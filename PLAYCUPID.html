@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine 💕</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffd6e8, #cde7ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.screen {
+  display: none;
+  animation: fade 0.6s ease;
+}
+
+@keyframes fade {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+
+button {
+  padding: 12px 22px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px;
+  background: #ff8fab;
+  color: white;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.arrow {
+  font-size: 22px;
+  background: none;
+  color: #ff5f9e;
+}
+
+.hidden {
+  display: none;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 15px;
+}
+
+.sticky {
+  background: #fff5b7;
+  padding: 20px;
+  border-radius: 15px;
+  transform: rotate(-2deg);
+  box-shadow: 5px 10px 20px rgba(0,0,0,0.15);
+}
+
+.polaroid {
+  background: white;
+  padding: 10px 10px 25px;
+  margin: 20px auto;
+  width: 80%;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  transform: rotate(-3deg);
+  position: relative;
+}
+
+.polaroid:nth-child(even) {
+  transform: rotate(3deg);
+}
+
+.sticker {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 24px;
+}
+
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: red;
+  animation: fall 3s linear infinite;
+}
+
+@keyframes fall {
+  0% {transform: translateY(-100vh);}
+  100% {transform: translateY(100vh);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- 404 -->
+<div id="errorScreen" class="screen card" style="display:block;">
+  <h1>404</h1>
+  <p>Oops! Page not found 🫢</p>
+  <button onclick="goToValentine()">Refresh</button>
+</div>
+
+<!-- Valentine Question -->
+<div id="valentineScreen" class="screen card">
+  <h2>Will you be my Valentine? 💘</h2>
+  <div>
+    <button id="yesBtn" onclick="yesClicked()">YES</button>
+    <button id="noBtn" onclick="noClicked()">NO 💔</button>
+  </div>
+  <p id="yesText" class="hidden">
+    By clicking YES you agree to:<br><br>
+    Unlimited kisses 💋<br>
+    Unstoppable nagging ⚠️<br>
+    Me for the rest of your life 🤪<br>
+    <b>Effective immediately!</b> 😝
+  </p>
+  <button class="arrow hidden" id="toForever" onclick="showForever()">→</button>
+</div>
+
+<!-- Forever Valentine -->
+<div id="foreverScreen" class="screen card">
+  <button class="arrow" onclick="backToValentine()">←</button>
+  <h2>My forever Valentine 💕</h2>
+  <img src="forever.jpg">
+  <div class="sticky">
+    RUthuuuuuuu I love you 3000, youre the best thing that has ever happened to me I miss you sooo much, I am soooo grateful for being able to celebrate our 2nd valentines together <3 <br><br>
+    – with Prema,<br>
+    your himmu 💋
+  </div>
+  <button onclick="showMemories()">Our memories🏠</button>
+  <button class="arrow" onclick="showMemories()">→</button>
+</div>
+
+<!-- Memories -->
+<div id="memoriesScreen" class="screen">
+  <button class="arrow" onclick="showForever()">←</button>
+  <h2>you & me, always forever💕🫂</h2>
+
+  <div class="polaroid">
+    <span class="sticker">💖</span>
+    <img src="pb1.jpg">
+  </div>
+  <div class="polaroid">
+    <span class="sticker">🏠</span>
+    <img src="pb2.jpg">
+  </div>
+  <div class="polaroid">
+    <span class="sticker">⭐</span>
+    <img src="pb3.jpg">
+  </div>
+  <div class="polaroid">
+    <span class="sticker">💞</span>
+    <img src="pb4.jpg">
+  </div>
+</div>
+
+</div>
+
+<script>
+let noCount = 0;
+
+function goToValentine() {
+  errorScreen.style.display = "none";
+  valentineScreen.style.display = "block";
+}
+
+function yesClicked() {
+  yesText.classList.remove("hidden");
+  setTimeout(() => {
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
+  }, 1000);
+
+  confetti();
+  setTimeout(() => toForever.classList.remove("hidden"), 1000);
+}
+
+function noClicked() {
+  noCount++;
+  noBtn.style.position = "absolute";
+  noBtn.style.left = Math.random()*70 + "%";
+  noBtn.style.top = Math.random()*70 + "%";
+
+  document.body.style.background =
+    `linear-gradient(135deg, hsl(${Math.random()*360},80%,85%), hsl(${Math.random()*360},80%,90%))`;
+
+  if (noCount >= 2) {
+    noBtn.innerText = "NO ☹️";
+  }
+}
+
+function confetti() {
+  for (let i = 0; i < 120; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+
+    const size = Math.random() * 6 + 6;
+    c.style.width = size + "px";
+    c.style.height = size * 1.4 + "px";
+
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 65%)`;
+
+    const duration = Math.random() * 3 + 3;
+    c.style.animationDuration = duration + "s";
+
+    const drift = (Math.random() * 200 - 100) + "px";
+    c.style.setProperty("--drift", drift);
+
+    document.body.appendChild(c);
+
+    setTimeout(() => {
+      c.remove();
+    }, 5000);
+  }
+}
+
+
+function showForever() {
+  valentineScreen.style.display = "none";
+  memoriesScreen.style.display = "none";
+  foreverScreen.style.display = "block";
+}
+
+function backToValentine() {
+  foreverScreen.style.display = "none";
+  valentineScreen.style.display = "block";
+}
+
+function showMemories() {
+  foreverScreen.style.display = "none";
+  memoriesScreen.style.display = "block";
+}
+</script>
+
+</body>
+</html>
